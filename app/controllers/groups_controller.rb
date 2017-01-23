@@ -24,6 +24,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user = current_user
     if @group.save
+      current_user.join!(@group)
       redirect_to groups_path
     else
       render :new
@@ -69,7 +70,7 @@ class GroupsController < ApplicationController
       flash[:warning] = "你不是本讨论版成员，怎么退出！"
     end
     redirect_to groups_path(@group)
-    
+
   end
 
 
